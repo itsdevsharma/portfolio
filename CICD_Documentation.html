@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CI/CD Pipeline Documentation — Portfolio2</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.6;
+      color: #202124;
+      max-width: 750px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+    h1 { font-size: 24pt; color: #1a73e8; border-bottom: 2px solid #1a73e8; padding-bottom: 8px; margin-top: 0; }
+    h2 { font-size: 16pt; color: #1a73e8; margin-top: 32px; border-bottom: 1px solid #dadce0; padding-bottom: 4px; }
+    h3 { font-size: 13pt; color: #202124; margin-top: 20px; }
+    h4 { font-size: 11pt; color: #444; margin-top: 16px; font-style: italic; }
+    code {
+      font-family: "Courier New", monospace;
+      font-size: 10pt;
+      background: #f1f3f4;
+      padding: 2px 5px;
+      border-radius: 3px;
+      color: #c0392b;
+    }
+    pre {
+      background: #f8f9fa;
+      border: 1px solid #dadce0;
+      border-left: 4px solid #1a73e8;
+      border-radius: 4px;
+      padding: 14px 16px;
+      font-family: "Courier New", monospace;
+      font-size: 9.5pt;
+      white-space: pre-wrap;
+      line-height: 1.5;
+      overflow-x: auto;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 16px 0;
+      font-size: 10.5pt;
+    }
+    th {
+      background: #1a73e8;
+      color: white;
+      padding: 10px 14px;
+      text-align: left;
+    }
+    td {
+      border: 1px solid #dadce0;
+      padding: 8px 14px;
+    }
+    tr:nth-child(even) td { background: #f8f9fa; }
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 9pt;
+      font-weight: bold;
+      margin-right: 4px;
+    }
+    .badge-blue  { background: #e8f0fe; color: #1a73e8; }
+    .badge-green { background: #e6f4ea; color: #137333; }
+    .badge-orange{ background: #fce8b2; color: #b06000; }
+    .note {
+      background: #e8f0fe;
+      border-left: 4px solid #1a73e8;
+      padding: 12px 16px;
+      border-radius: 4px;
+      margin: 16px 0;
+      font-size: 10.5pt;
+    }
+    .warning {
+      background: #fce8b2;
+      border-left: 4px solid #f9ab00;
+      padding: 12px 16px;
+      border-radius: 4px;
+      margin: 16px 0;
+      font-size: 10.5pt;
+    }
+    ul li, ol li { margin-bottom: 4px; }
+    .flow {
+      background: #f8f9fa;
+      border: 1px solid #dadce0;
+      border-radius: 6px;
+      padding: 16px;
+      font-family: "Courier New", monospace;
+      font-size: 9.5pt;
+      text-align: center;
+    }
+    .section-meta {
+      font-size: 9.5pt;
+      color: #5f6368;
+      margin-top: -8px;
+      margin-bottom: 16px;
+    }
+    hr { border: none; border-top: 1px solid #dadce0; margin: 32px 0; }
+    .cover {
+      text-align: center;
+      padding: 40px 0 32px 0;
+      border-bottom: 2px solid #dadce0;
+      margin-bottom: 32px;
+    }
+    .cover h1 { border: none; font-size: 28pt; }
+    .cover p { color: #5f6368; font-size: 11pt; margin: 4px 0; }
+  </style>
+</head>
+<body>
+
+<!-- Cover -->
+<div class="cover">
+  <h1>CI/CD Pipeline Documentation</h1>
+  <p><strong>Project:</strong> Portfolio2 — Full-Stack Portfolio Website</p>
+  <p><strong>Stack:</strong> React + TypeScript (Frontend) &nbsp;|&nbsp; Node.js + Express (Backend)</p>
+  <p><strong>Prepared by:</strong> Dev Sharma &nbsp;|&nbsp; <strong>Date:</strong> March 2026</p>
+</div>
+
+<!-- Table of Contents -->
+<h2>Table of Contents</h2>
+<ol>
+  <li><a href="#overview">Overview</a></li>
+  <li><a href="#architecture">Pipeline Architecture</a></li>
+  <li><a href="#ci">CI Pipeline — Continuous Integration</a></li>
+  <li><a href="#cd">CD Pipeline — Continuous Deployment</a></li>
+  <li><a href="#docker-compose">Docker Compose</a></li>
+  <li><a href="#dockerfiles">Dockerfiles</a></li>
+  <li><a href="#secrets">GitHub Secrets Setup</a></li>
+  <li><a href="#flow">End-to-End Flow</a></li>
+  <li><a href="#local">Running Locally with Docker</a></li>
+</ol>
+
+<hr />
+
+<!-- 1. Overview -->
+<h2 id="overview">1. Overview</h2>
+<p>
+  This document describes the CI/CD pipeline set up for the Portfolio2 project using
+  <strong>GitHub Actions</strong> for automation and <strong>Docker</strong> for containerization.
+  The pipelines ensure that every code change is automatically validated and, upon merging to
+  <code>main</code>, deployed to the production server with zero manual steps.
+</p>
+
+<table>
+  <tr><th>Term</th><th>What it means</th></tr>
+  <tr><td><strong>CI — Continuous Integration</strong></td><td>Automatically test and build the code on every push or pull request</td></tr>
+  <tr><td><strong>CD — Continuous Deployment</strong></td><td>Automatically build Docker images and deploy to the server when CI passes</td></tr>
+  <tr><td><strong>GitHub Actions</strong></td><td>GitHub's built-in automation system that runs workflows defined in <code>.yml</code> files</td></tr>
+  <tr><td><strong>Docker</strong></td><td>Packages the app into a container — a lightweight, portable unit that runs the same everywhere</td></tr>
+  <tr><td><strong>GHCR</strong></td><td>GitHub Container Registry — free image hosting built into GitHub, no extra account needed</td></tr>
+  <tr><td><strong>Docker Compose</strong></td><td>Runs multiple containers (frontend + backend) together with one command</td></tr>
+</table>
+
+<hr />
+
+<!-- 2. Architecture -->
+<h2 id="architecture">2. Pipeline Architecture</h2>
+
+<div class="flow">
+Developer pushes to <strong>main</strong><br/><br/>
+↓<br/><br/>
+┌───────────────────────────────────────┐<br/>
+│ CI — Runs on every push &amp; PR │<br/>
+│ ┌─────────────────────────────────┐ │<br/>
+│ │ Job 1: Frontend │ │<br/>
+│ │ lint → test → build │ │<br/>
+│ └─────────────────────────────────┘ │<br/>
+│ ┌─────────────────────────────────┐ │<br/>
+│ │ Job 2: Backend │ │<br/>
+│ │ install → syntax check │ │<br/>
+│ └─────────────────────────────────┘ │<br/>
+└───────────────────────────────────────┘<br/><br/>
+↓ (both jobs must pass)<br/><br/>
+┌───────────────────────────────────────┐<br/>
+│ CD — Runs only on push to main │<br/>
+│ ┌─────────────────────────────────┐ │<br/>
+│ │ Job 1: Build &amp; Push │ │<br/>
+│ │ Build images → push to GHCR │ │<br/>
+│ └─────────────────────────────────┘ │<br/>
+│ ┌─────────────────────────────────┐ │<br/>
+│ │ Job 2: Deploy │ │<br/>
+│ │ SSH → pull → restart containers │ │<br/>
+│ └─────────────────────────────────┘ │<br/>
+└───────────────────────────────────────┘<br/><br/>
+↓<br/><br/>
+<strong>Site is live with the new version</strong>
+</div>
+
+<hr />
+
+<!-- 3. CI -->
+<h2 id="ci">3. CI Pipeline — Continuous Integration</h2>
+<p class="section-meta">File: <code>.github/workflows/ci.yml</code></p>
+
+<h3>Trigger Conditions</h3>
+<pre>on:
+  push:
+    branches: [main]        # runs when you push directly to main
+  pull_request:
+    branches: [main]        # runs when a PR targets main — blocks merge if it fails</pre>
+
+<h3>Job 1: Frontend — Lint, Test &amp; Build</h3>
+<p>All steps run inside the <code>frontend/</code> directory.</p>
+
+<table>
+  <tr><th>Step</th><th>Command</th><th>Purpose</th></tr>
+  <tr><td>Checkout</td><td><code>actions/checkout@v4</code></td><td>Downloads your repository code into the runner</td></tr>
+  <tr><td>Setup Node</td><td><code>actions/setup-node@v4</code></td><td>Installs Node.js 20 with npm cache enabled (faster installs)</td></tr>
+  <tr><td>Install</td><td><code>npm ci</code></td><td>Clean install from lock file — deterministic, reproducible</td></tr>
+  <tr><td>Lint</td><td><code>npm run lint</code></td><td>ESLint checks for code quality issues and anti-patterns</td></tr>
+  <tr><td>Test</td><td><code>npm test</code></td><td>Runs Vitest unit tests — fails the pipeline if any test fails</td></tr>
+  <tr><td>Build</td><td><code>npm run build</code></td><td>Vite compiles the React app to static files in <code>dist/</code></td></tr>
+  <tr><td>Upload artifact</td><td><code>upload-artifact@v4</code></td><td>Saves the built <code>dist/</code> folder for 1 day for inspection</td></tr>
+</table>
+
+<div class="note">
+  <strong>Why <code>npm ci</code> instead of <code>npm install</code>?</strong><br/>
+  <code>npm ci</code> deletes <code>node_modules</code> and installs exactly what's in <code>package-lock.json</code>.
+  It never modifies the lock file, ensuring every pipeline run gets identical dependencies.
+</div>
+
+<h3>Job 2: Backend — Install &amp; Validate</h3>
+<p>All steps run inside the <code>backend/</code> directory.</p>
+
+<table>
+  <tr><th>Step</th><th>Command</th><th>Purpose</th></tr>
+  <tr><td>Checkout</td><td><code>actions/checkout@v4</code></td><td>Downloads repository code</td></tr>
+  <tr><td>Setup Node</td><td><code>actions/setup-node@v4</code></td><td>Node.js 20 with npm cache</td></tr>
+  <tr><td>Install</td><td><code>npm ci</code></td><td>Clean install of backend dependencies</td></tr>
+  <tr><td>Syntax check</td><td><code>node --check index.js</code></td><td>Parses all JS for syntax errors without running the server (no database required)</td></tr>
+</table>
+
+<div class="note">
+  <strong>Why not run the backend server in CI?</strong><br/>
+  The backend connects to MongoDB on startup. Starting the full server in CI would require a real
+  or mock database. <code>node --check</code> validates syntax without any external dependencies.
+</div>
+
+<hr />
+
+<!-- 4. CD -->
+<h2 id="cd">4. CD Pipeline — Continuous Deployment</h2>
+<p class="section-meta">File: <code>.github/workflows/cd.yml</code></p>
+
+<h3>Trigger Condition</h3>
+<pre>on:
+  push:
+    branches: [main]        # only on direct push to main (not PRs)</pre>
+
+<h3>Permissions</h3>
+<pre>permissions:
+  contents: read
+  packages: write           # required to push images to GitHub Container Registry</pre>
+
+<h3>Job 1: Build &amp; Push Docker Images</h3>
+
+<h4>Step 1 — Set up Docker Buildx</h4>
+<pre>uses: docker/setup-buildx-action@v3</pre>
+<p>
+  Buildx is the modern Docker build engine (BuildKit). It enables:
+</p>
+<ul>
+  <li>Layer-by-layer caching — only rebuilds what changed</li>
+  <li>Parallel build stages</li>
+  <li>Multi-platform image support (e.g., linux/amd64 and linux/arm64)</li>
+</ul>
+
+<h4>Step 2 — Login to GitHub Container Registry</h4>
+<pre>uses: docker/login-action@v3
+with:
+  registry: ghcr.io
+  username: ${{ github.actor }}       # your GitHub username, auto-injected
+  password: ${{ secrets.GITHUB_TOKEN }} # auto-generated token, no setup needed</pre>
+<p>
+  GHCR (ghcr.io) is GitHub's free container registry. Images are stored alongside your repository.
+  <code>GITHUB_TOKEN</code> is automatically available in every GitHub Actions workflow — no manual secret needed.
+</p>
+
+<h4>Step 3 — Build &amp; Push Backend Image</h4>
+<pre>uses: docker/build-push-action@v6
+with:
+  context: ./backend                         # uses backend/Dockerfile
+  push: true
+  tags: |
+    ghcr.io/yourname/portfolio2-backend:latest        # always updated
+    ghcr.io/yourname/portfolio2-backend:abc1234       # pinned to this exact commit
+  cache-from: type=gha
+  cache-to: type=gha,mode=max</pre>
+
+<p><strong>Two tags explained:</strong></p>
+<table>
+  <tr><th>Tag</th><th>Purpose</th></tr>
+  <tr><td><code>:latest</code></td><td>Always points to the newest build — used by the server when pulling</td></tr>
+  <tr><td><code>:&lt;git-sha&gt;</code></td><td>Pinned to this exact commit — used for rollback if something breaks</td></tr>
+</table>
+
+<p><strong>Build cache:</strong> <code>type=gha</code> stores Docker layer cache in GitHub Actions cache storage.
+On the second build, only layers that changed are rebuilt — dramatically faster builds.</p>
+
+<h4>Step 4 — Build &amp; Push Frontend Image</h4>
+<pre>uses: docker/build-push-action@v6
+with:
+  context: ./frontend
+  build-args: |
+    VITE_API_URL=${{ secrets.VITE_API_URL }}   # production backend URL baked into the bundle</pre>
+
+<div class="warning">
+  <strong>Why is the API URL a build argument?</strong><br/>
+  Vite compiles environment variables (<code>VITE_*</code>) into the JavaScript bundle at build time.
+  Unlike a backend where you can read env vars at runtime, a React SPA has no server — so
+  the URL must be embedded during the build. That's why it's passed as a Docker build argument.
+</div>
+
+<h3>Job 2: Deploy to Server</h3>
+<pre>needs: build-and-push   # only runs if Job 1 succeeded</pre>
+
+<h4>Step 1 — Copy docker-compose.yml to server (SCP)</h4>
+<pre>uses: appleboy/scp-action@v0.1.7
+with:
+  source: docker-compose.yml
+  target: ~/portfolio2</pre>
+<p>
+  SCP (Secure Copy Protocol) transfers the <code>docker-compose.yml</code> file over SSH to your server.
+  This ensures the server always has the latest compose configuration.
+</p>
+
+<h4>Step 2 — Pull &amp; Restart Containers (SSH)</h4>
+<pre>uses: appleboy/ssh-action@v1
+script: |
+  cd ~/portfolio2
+  echo "TOKEN" | docker login ghcr.io --password-stdin   # authenticate to pull private images
+  export VITE_API_URL=https://api.yourdomain.com
+  docker compose pull                                      # download latest images from GHCR
+  docker compose up -d --remove-orphans                   # restart in background, clean up old
+  docker image prune -f                                    # delete dangling old images</pre>
+
+<table>
+  <tr><th>Command</th><th>What it does</th></tr>
+  <tr><td><code>docker compose pull</code></td><td>Downloads the newly pushed <code>:latest</code> images</td></tr>
+  <tr><td><code>docker compose up -d</code></td><td>Starts containers in detached (background) mode</td></tr>
+  <tr><td><code>--remove-orphans</code></td><td>Removes containers for services removed from the compose file</td></tr>
+  <tr><td><code>docker image prune -f</code></td><td>Deletes old image versions to free disk space</td></tr>
+</table>
+
+<hr />
+
+<!-- 5. Docker Compose -->
+<h2 id="docker-compose">5. Docker Compose</h2>
+<p class="section-meta">File: <code>docker-compose.yml</code></p>
+
+<p>Docker Compose is used both for <strong>local development</strong> (<code>docker compose up --build</code>) and
+<strong>production</strong> (pulling pre-built images from GHCR).</p>
+
+<pre>services:
+  backend:
+    build:
+      context: ./backend        # build image from backend/Dockerfile
+    container_name: portfolio-backend
+    restart: unless-stopped     # auto-restart on crash or server reboot
+    env_file: ./backend/.env    # loads MONGO_URI, RESEND_API_KEY, PORT, etc.
+    ports:
+      - "5000:5000"             # host port : container port
+    volumes:
+      - backend_uploads:/app/uploads   # persists uploaded resume file across restarts
+    networks:
+      - portfolio-net
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:5000}
+        # ↑ uses $VITE_API_URL env var if set, falls back to localhost for local dev
+    container_name: portfolio-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"                 # serves on port 80 (standard HTTP)
+    depends_on:
+      - backend                 # Docker starts backend first, then frontend
+    networks:
+      - portfolio-net
+
+volumes:
+  backend_uploads:              # named volume — survives container deletion/rebuild
+
+networks:
+  portfolio-net:
+    driver: bridge              # isolated virtual network</pre>
+
+<h3>Key Concepts</h3>
+
+<table>
+  <tr><th>Concept</th><th>Explanation</th></tr>
+  <tr><td><code>restart: unless-stopped</code></td><td>Container auto-restarts on crash and on server reboot, but not if you manually stop it</td></tr>
+  <tr><td><code>env_file</code></td><td>Reads all key=value pairs from <code>.env</code> file — keeps secrets out of the compose file</td></tr>
+  <tr><td><code>volumes: backend_uploads</code></td><td>Named volume persists the uploaded resume PDF even when the container is rebuilt or deleted</td></tr>
+  <tr><td><code>depends_on</code></td><td>Docker starts the backend container before the frontend — prevents frontend from starting with no API available</td></tr>
+  <tr><td><code>portfolio-net</code></td><td>An isolated virtual network — containers can talk to each other by service name (e.g., <code>http://backend:5000</code>)</td></tr>
+  <tr><td><code>:-</code> default syntax</td><td><code>${VITE_API_URL:-http://localhost:5000}</code> means: use the env var if set, otherwise use the fallback</td></tr>
+</table>
+
+<hr />
+
+<!-- 6. Dockerfiles -->
+<h2 id="dockerfiles">6. Dockerfiles</h2>
+
+<h3>Frontend Dockerfile — Multi-Stage Build</h3>
+<p class="section-meta">File: <code>frontend/Dockerfile</code></p>
+
+<pre># ── Stage 1: Build ───────────────────────────────────────────────
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+ARG VITE_API_URL=http://localhost:5000    # receives value from docker compose / CI
+ENV VITE_API_URL=$VITE_API_URL
+
+COPY package*.json ./
+RUN npm ci                                # install deps first (Docker cache layer)
+
+COPY . .
+RUN npm run build                         # produces dist/ folder
+
+# ── Stage 2: Serve ───────────────────────────────────────────────
+FROM nginx:alpine                         # tiny final image (no Node.js, no source code)
+
+COPY --from=builder /app/dist /usr/share/nginx/html   # copy only the built files
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]</pre>
+
+<p><strong>Why multi-stage?</strong> The builder stage uses a full Node.js image (~180MB) with all dev tools.
+The final image only contains nginx + the compiled HTML/JS/CSS (~25MB).
+The source code, node_modules, and build tools never reach production.</p>
+
+<h3>nginx.conf — SPA Routing</h3>
+<pre>location / {
+    try_files $uri $uri/ /index.html;    # all unknown routes → index.html
+}</pre>
+<p>Without this, refreshing the page on a React route (e.g., <code>/projects</code>) would return a 404
+from nginx because the file doesn't exist on disk — React Router handles the routing in the browser.</p>
+
+<h3>Backend Dockerfile</h3>
+<p class="section-meta">File: <code>backend/Dockerfile</code></p>
+
+<pre>FROM node:20-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci --omit=dev          # installs only production deps (no devDependencies)
+
+COPY . .
+RUN mkdir -p uploads            # ensure uploads directory exists
+
+EXPOSE 5000
+CMD ["node", "index.js"]</pre>
+
+<p><code>--omit=dev</code> skips devDependencies (like nodemon, test frameworks) — smaller, more secure image.</p>
+
+<hr />
+
+<!-- 7. Secrets -->
+<h2 id="secrets">7. GitHub Secrets Setup</h2>
+
+<p>Go to your repository → <strong>Settings → Secrets and variables → Actions → New repository secret</strong></p>
+
+<table>
+  <tr><th>Secret Name</th><th>Value</th><th>Required for</th></tr>
+  <tr><td><code>VITE_API_URL</code></td><td>Your production backend URL<br/><em>e.g. https://api.yourdomain.com</em></td><td>Frontend build — baked into the JS bundle</td></tr>
+  <tr><td><code>SSH_HOST</code></td><td>Your server's IP address or hostname</td><td>CD deploy step</td></tr>
+  <tr><td><code>SSH_USER</code></td><td>SSH login username (e.g. <code>ubuntu</code>, <code>root</code>)</td><td>CD deploy step</td></tr>
+  <tr><td><code>SSH_PRIVATE_KEY</code></td><td>Contents of your <code>~/.ssh/id_rsa</code> private key</td><td>CD deploy step</td></tr>
+  <tr><td><code>GITHUB_TOKEN</code></td><td><em>Automatically available — no setup needed</em></td><td>Pushing images to GHCR</td></tr>
+</table>
+
+<div class="warning">
+  <strong>Never commit secrets to the repository.</strong>
+  All sensitive values (API keys, database URIs, SSH keys) must go in GitHub Secrets — not in
+  <code>.env</code> files that are committed to git.
+</div>
+
+<hr />
+
+<!-- 8. End-to-End Flow -->
+<h2 id="flow">8. End-to-End Flow</h2>
+
+<table>
+  <tr><th>#</th><th>Event</th><th>What happens</th></tr>
+  <tr><td>1</td><td>Developer pushes code to <code>main</code></td><td>GitHub Actions triggers both CI and CD workflows</td></tr>
+  <tr><td>2</td><td>CI — Frontend job</td><td>Lint → test → build. If any step fails, the workflow is marked as failed</td></tr>
+  <tr><td>3</td><td>CI — Backend job</td><td>Install → syntax check. Runs in parallel with frontend job</td></tr>
+  <tr><td>4</td><td>CD — Build &amp; Push (Job 1)</td><td>Builds Docker images for frontend and backend, pushes to GHCR with <code>:latest</code> and <code>:sha</code> tags</td></tr>
+  <tr><td>5</td><td>CD — Deploy (Job 2)</td><td>Copies <code>docker-compose.yml</code> to server via SCP, then SSHs in and runs <code>docker compose pull &amp;&amp; up -d</code></td></tr>
+  <tr><td>6</td><td>Production</td><td>New containers are running. Old ones are stopped. Disk is cleaned up.</td></tr>
+</table>
+
+<hr />
+
+<!-- 9. Local Usage -->
+<h2 id="local">9. Running Locally with Docker</h2>
+
+<h3>Start everything</h3>
+<pre>cd portfolio2
+docker compose up --build</pre>
+<ul>
+  <li>Frontend → <code>http://localhost</code> (port 80)</li>
+  <li>Backend API → <code>http://localhost:5000</code></li>
+</ul>
+
+<h3>Stop containers</h3>
+<pre>docker compose down</pre>
+
+<h3>Stop and delete volumes (reset uploads)</h3>
+<pre>docker compose down -v</pre>
+
+<h3>View logs</h3>
+<pre>docker compose logs -f             # all services
+docker compose logs -f backend     # backend only</pre>
+
+<h3>Rebuild a single service after code changes</h3>
+<pre>docker compose up --build frontend</pre>
+
+<h3>Roll back to a previous version on the server</h3>
+<pre># SSH into your server, then:
+docker pull ghcr.io/yourname/portfolio2-backend:&lt;old-sha&gt;
+docker pull ghcr.io/yourname/portfolio2-frontend:&lt;old-sha&gt;
+docker tag ghcr.io/yourname/portfolio2-backend:&lt;old-sha&gt; ghcr.io/yourname/portfolio2-backend:latest
+docker tag ghcr.io/yourname/portfolio2-frontend:&lt;old-sha&gt; ghcr.io/yourname/portfolio2-frontend:latest
+docker compose up -d</pre>
+
+<hr />
+
+<p style="text-align:center; color:#5f6368; font-size:9.5pt; margin-top:40px;">
+  Portfolio2 CI/CD Documentation &nbsp;|&nbsp; Dev Sharma &nbsp;|&nbsp; March 2026
+</p>
+
+</body>
+</html>

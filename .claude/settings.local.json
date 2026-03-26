@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /c/projects/portfolio2 -type d ! -path */node_modules/*)",
+      "Bash(ls -lah /c/projects/portfolio2/backend/*.js /c/projects/portfolio2/backend/models/ /c/projects/portfolio2/backend/config/)"
+    ]
+  }
+}
