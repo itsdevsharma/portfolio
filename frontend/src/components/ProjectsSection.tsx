@@ -10,8 +10,8 @@ const projects = [
   },
   {
     title: "Approval Workflow",
-    description: "A workflow management system for handling multi-step approval processes with role-based access control and real-time status tracking.",
-    techs: ["Node.js", "Express", "React", "MongoDB"],
+    description: "Cross-platform workflow management app (web, mobile, desktop) with multi-step approval processes, role-based access control, and real-time status tracking. Built with SSR and PWA support.",
+    techs: ["Quasar Framework", "Vue 3", "TypeScript", "Pinia", "PocketBase", "PWA", "SSR", "Capacitor", "Electron"],
     github: "https://github.com/sharmaankit25/approval-workflow",
     demo: null,
   },

@@ -4,12 +4,12 @@ const categories = [
   {
     title: "Frontend",
     icon: Code2,
-    techs: ["React.js", "JavaScript", "TypeScript"],
+    techs: ["React.js", "Vue 3", "Quasar Framework", "JavaScript", "TypeScript", "Pinia"],
   },
   {
     title: "Backend",
     icon: Server,
-    techs: ["Node.js", "Express.js"],
+    techs: ["Node.js", "Express.js", "PocketBase"],
   },
   {
     title: "Databases",
@@ -19,7 +19,7 @@ const categories = [
   {
     title: "DevOps & Tools",
     icon: GitBranch,
-    techs: ["Docker", "Docker Compose", "GitHub Actions", "CI/CD", "GHCR", "Vercel", "Render", "Postman", "Git"],
+    techs: ["Docker", "Docker Compose", "GitHub Actions", "CI/CD", "GHCR", "PWA", "SSR", "Capacitor", "Electron", "Vercel", "Render", "Postman", "Git"],
   },
 ];
 
