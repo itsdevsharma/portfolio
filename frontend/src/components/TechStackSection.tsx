@@ -1,4 +1,4 @@
-import { Code2, Server, Database, Wrench } from "lucide-react";
+import { Code2, Server, Database, Wrench, GitBranch } from "lucide-react";
 
 const categories = [
   {
@@ -17,9 +17,9 @@ const categories = [
     techs: ["MongoDB", "PostgreSQL"],
   },
   {
-    title: "Tools & Deploy",
-    icon: Wrench,
-    techs: ["Vercel", "Render", "Postman", "GitHub"],
+    title: "DevOps & Tools",
+    icon: GitBranch,
+    techs: ["Docker", "Docker Compose", "GitHub Actions", "CI/CD", "GHCR", "Vercel", "Render", "Postman", "Git"],
   },
 ];
 
