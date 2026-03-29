@@ -4,7 +4,7 @@ const categories = [
   {
     title: "Frontend",
     icon: Code2,
-    techs: ["React.js", "Vue 3", "Quasar Framework", "JavaScript", "TypeScript", "Pinia"],
+    techs: ["React.js", "JavaScript", "TypeScript"],
   },
   {
     title: "Backend",
