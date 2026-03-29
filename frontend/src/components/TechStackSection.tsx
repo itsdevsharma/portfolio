@@ -19,7 +19,7 @@ const categories = [
   {
     title: "DevOps & Tools",
     icon: GitBranch,
-    techs: ["Docker", "GitHub Actions", "CI/CD", "PWA", "SSR", "Electron", "Vercel", "Render", "Postman", "Git"],
+    techs: ["Docker", "GitHub Actions", "CI/CD", "PWA", "SSR", "Vercel", "Render", "Postman", "Git"],
   },
 ];
 
