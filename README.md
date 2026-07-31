@@ -2,7 +2,7 @@
 
 A full-stack developer portfolio built with React + TypeScript on the frontend and Node.js + Express on the backend. Features a contact form with email notifications, resume upload/download, and a fully automated CI/CD pipeline using GitHub Actions and Docker.
 
-**Live:** [portfolio-1.onrender.com](https://portfolio-1.onrender.com) &nbsp;|&nbsp; **API:** [portfolio.onrender.com](https://portfolio.onrender.com)
+**Live:** [[portfolio-1.onrender.com](https://portfolio-1.onrender.com)](https://portfolio-1-kw1m.onrender.com/) &nbsp;|&nbsp; **API:** [portfolio.onrender.com](https://portfolio.onrender.com)
 
 ---
 
