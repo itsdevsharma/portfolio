@@ -110,8 +110,13 @@ const ContactSection = () => {
           </form>
         )}
 
-        <div className="mt-8 flex items-center gap-3">
-          <a href="https://github.com/itsdevsharma" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-sm font-mono">
+        <div className="mt-8 flex flex-col gap-3 text-sm font-mono text-muted-foreground">
+          <a href="mailto:its.dev.sharma123@gmail.com" className="hover:text-primary transition-colors">its.dev.sharma123@gmail.com</a>
+          <a href="tel:+919354355930" className="hover:text-primary transition-colors">(+91) 9354355930</a>
+          <span>Faridabad, Haryana</span>
+          <a href="https://portfolio-1-kw1m.onrender.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">portfolio-1-kw1m.onrender.com</a>
+          <a href="https://linkedin.com/in/dev-sharma-353459236" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">linkedin.com/in/dev-sharma-353459236</a>
+          <a href="https://github.com/itsdevsharma" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary transition-colors">
             <Github size={18} /> github.com/itsdevsharma
           </a>
         </div>

@@ -12,14 +12,15 @@ const AboutSection = () => {
       <div className="container mx-auto max-w-4xl">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">
           <span className="text-gradient font-mono text-sm block mb-2">// about me</span>
-          Building the Backend
+          Building dependable digital products
         </h2>
 
         <p className="text-muted-foreground text-lg leading-relaxed mb-12 max-w-2xl">
-          I'm a Full Stack Developer with a deep specialization in backend development using Node.js. 
-          I'm passionate about building scalable web applications, designing clean RESTful APIs, 
-          and crafting efficient database architectures. I believe in writing maintainable, 
-          well-tested code that stands the test of time.
+          I'm a Software Developer with experience building and maintaining ERP, CRM, HRMS, CMS, and real-time web applications using React.js, Node.js, Express.js, TypeScript, PostgreSQL, and MongoDB. I enjoy creating robust REST APIs, improving production systems, and deploying reliable solutions with Docker and Linux.
+        </p>
+
+        <p className="text-muted-foreground text-lg leading-relaxed mb-12 max-w-2xl">
+          I hold a B.Tech in Computer Science & Engineering with specialization in IT from Guru Jambheshwar University of Science & Technology, Hisar.
         </p>
 
         <div className="grid md:grid-cols-3 gap-6">

@@ -4,9 +4,9 @@ import { FileText, Download, Upload, Check, AlertCircle } from "lucide-react";
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const highlights = [
-  "Backend-focused engineer with strong API design and data modeling experience.",
-  "Hands-on with Node.js, Express, TypeScript, PostgreSQL, and MongoDB.",
-  "Production experience with Docker, cloud deployments, and performance tuning.",
+  "Software Developer with experience building ERP, CRM, HRMS, CMS, and real-time web applications.",
+  "Hands-on with React.js, Node.js, Express.js, TypeScript, PostgreSQL, MongoDB, Docker, and Linux.",
+  "B.Tech in Computer Science & Engineering with specialization in IT from Guru Jambheshwar University of Science & Technology, Hisar.",
 ];
 
 const ResumeSection = () => {
@@ -73,7 +73,7 @@ const ResumeSection = () => {
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold">Dev Sharma</h3>
-                  <p className="text-muted-foreground text-sm">Backend & Full Stack Developer</p>
+                  <p className="text-muted-foreground text-sm">Software Developer | Full Stack Developer</p>
                 </div>
               </div>
               <ul className="space-y-2 text-sm text-muted-foreground">

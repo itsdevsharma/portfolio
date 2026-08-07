@@ -23,11 +23,11 @@ const HeroSection = () => {
         </h1>
 
         <p className="text-xl md:text-2xl text-muted-foreground font-mono mb-4 animate-fade-in" style={{ animationDelay: "0.2s", animationFillMode: "both" }}>
-          Node.js Developer | JavaScript & TypeScript
+          Software Developer | Full Stack Developer
         </p>
 
         <p className="max-w-2xl mx-auto text-muted-foreground text-lg mb-10 animate-fade-in" style={{ animationDelay: "0.3s", animationFillMode: "both" }}>
-          I build scalable backend systems and modern web applications. Passionate about clean code, robust APIs, and developer experience.
+          I build scalable ERP, CRM, HRMS, CMS, and real-time web applications using React.js, Node.js, Express.js, TypeScript, PostgreSQL, MongoDB, Docker, and Linux.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in" style={{ animationDelay: "0.4s", animationFillMode: "both" }}>
