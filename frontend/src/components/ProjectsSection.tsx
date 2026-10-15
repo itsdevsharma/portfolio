@@ -3,7 +3,9 @@ import { ExternalLink, Github } from "lucide-react";
 const projects = [
   {
     title: "Loom IQ — Clothing ERP",
-    description: "Clothing ERP software for apparel businesses. Log in with the demo account below to explore and test the software.",
+    category: "Personal Product",
+    website: "https://loomiq.site",
+    description: "My personal product, Loom IQ, is clothing ERP software built for apparel businesses to manage their day-to-day operations in one place. Visit the product website to learn more, or use the demo account below to explore and test the software.",
     techs: ["Clothing ERP", "Apparel", "Business Software"],
     github: null,
     demo: "https://erp-system-olive-nine.vercel.app",
@@ -48,6 +50,11 @@ const ProjectsSection = () => {
         <div className="grid md:grid-cols-2 gap-6">
           {projects.map((project) => (
             <div key={project.title} className="card-gradient rounded-xl border border-border p-6 flex flex-col hover-lift group">
+              {project.category && (
+                <span className="self-start rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary mb-3">
+                  {project.category}
+                </span>
+              )}
               <h3 className="text-xl font-semibold mb-2 group-hover:text-primary transition-colors">{project.title}</h3>
               <p className="text-muted-foreground text-sm mb-4 flex-1">{project.description}</p>
               <div className="flex flex-wrap gap-2 mb-5">
@@ -72,7 +79,12 @@ const ProjectsSection = () => {
                   </dl>
                 </div>
               )}
-              <div className="flex gap-3">
+              <div className="flex flex-wrap gap-3">
+                {project.website && (
+                  <a href={project.website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
+                    <ExternalLink size={16} /> loomiq.site
+                  </a>
+                )}
                 {project.github && (
                   <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
                     <Github size={16} /> GitHub
