@@ -4,7 +4,7 @@ const roles = [
   {
     title: "Software Developer",
     company: "Nextsparks Ventures LLP",
-    timeframe: "07/2026 – Present",
+    timeframe: "04/2026 – Present",
     location: "Gurugram, Haryana",
     highlights: [
       "Managed and maintained the company website and custom-built CMS while resolving production issues promptly.",
@@ -16,9 +16,9 @@ const roles = [
     ],
   },
   {
-    title: "Full Stack Developer Intern",
+    title: "Full Stack Developer",
     company: "DPvision Analytics",
-    timeframe: "01/2026 – 05/2026",
+    timeframe: "11/2025 – 04/2026",
     location: "Mohali, Punjab",
     highlights: [
       "Developed and maintained CRM, ERP, and LMS modules using Node.js, Express.js, TypeScript, and React.js.",
