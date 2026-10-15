@@ -4,22 +4,27 @@ const categories = [
   {
     title: "Frontend",
     icon: Code2,
-    techs: ["React.js", "JavaScript", "TypeScript"],
+    techs: ["React.js", "Next.js", "JavaScript", "TypeScript", "Tailwind CSS"],
   },
   {
     title: "Backend",
     icon: Server,
-    techs: ["Node.js", "Express.js", "PocketBase"],
+    techs: ["Node.js", "Express.js", "REST APIs", "Socket.IO", "PocketBase"],
   },
   {
     title: "Databases",
     icon: Database,
-    techs: ["MongoDB", "PostgreSQL"],
+    techs: ["MongoDB", "PostgreSQL", "SQL"],
   },
   {
     title: "DevOps & Tools",
     icon: GitBranch,
-    techs: ["Docker", "GitHub Actions", "CI/CD", "PWA", "SSR", "Vercel", "Render", "Postman", "Git"],
+    techs: ["Docker", "Linux", "Nginx", "Git", "GitHub Actions", "CI/CD", "PM2", "Vercel", "Render"],
+  },
+  {
+    title: "Development Concepts",
+    icon: Wrench,
+    techs: ["JWT Authentication", "Role-Based Access Control (RBAC)", "MVC Architecture", "Database Design", "API Integration", "Responsive Web Design"],
   },
 ];
 
