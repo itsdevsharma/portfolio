@@ -2,6 +2,18 @@ import { ExternalLink, Github } from "lucide-react";
 
 const projects = [
   {
+    title: "Loom IQ — Clothing ERP",
+    description: "Clothing ERP software for apparel businesses. Log in with the demo account below to explore and test the software.",
+    techs: ["Clothing ERP", "Apparel", "Business Software"],
+    github: null,
+    demo: "https://erp-system-olive-nine.vercel.app",
+    demoLabel: "Log In & Try Demo",
+    demoCredentials: {
+      userId: "its.dev.sharma123@gmail.com",
+      password: "qwerty",
+    },
+  },
+  {
     title: "Screen Recorder & Video Trimmer",
     description: "Full-stack web app to record your screen with audio, trim recorded videos with precise start/end selection, and upload them to cloud storage with metadata tracking.",
     techs: ["Next.js", "React", "TypeScript", "MongoDB", "FFmpeg", "Cloudinary"],
@@ -45,13 +57,30 @@ const ProjectsSection = () => {
                   </span>
                 ))}
               </div>
+              {project.demoCredentials && (
+                <div className="rounded-lg border border-border bg-secondary p-3 mb-5 text-sm">
+                  <p className="font-medium mb-2">Demo login</p>
+                  <dl className="space-y-1 text-muted-foreground">
+                    <div>
+                      <dt className="inline">User ID: </dt>
+                      <dd className="inline font-mono break-all select-all">{project.demoCredentials.userId}</dd>
+                    </div>
+                    <div>
+                      <dt className="inline">Password: </dt>
+                      <dd className="inline font-mono select-all">{project.demoCredentials.password}</dd>
+                    </div>
+                  </dl>
+                </div>
+              )}
               <div className="flex gap-3">
-                <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
-                  <Github size={16} /> GitHub
-                </a>
+                {project.github && (
+                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
+                    <Github size={16} /> GitHub
+                  </a>
+                )}
                 {project.demo && (
                   <a href={project.demo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
-                    <ExternalLink size={16} /> Demo
+                    <ExternalLink size={16} /> {project.demoLabel ?? "Demo"}
                   </a>
                 )}
               </div>
